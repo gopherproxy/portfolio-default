@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Single Page with jQuery</title>
+<!-- loading lightbox and gallery styles -->
+<link rel="stylesheet" type="text/css" href="css/featherlight.min.css">
+<link rel="stylesheet" type="text/css" href="css/featherlight.gallery.min.css">
+<link rel="stylesheet" type="text/css" href="css/styles.css">
+<script src="scripts/jquery-1.11.3.min.js"></script>
+<!-- loading scroll plugin -->
+<script src="scripts/jquery.scrollTo.min.js"></script>
+<!-- loading lightbox and gallery scripts -->
+<script src="scripts/featherlight.min.js"></script>
+<script src="scripts/featherlight.gallery.min.js"></script>
+<!-- jQuery form validation plugin from http://formvalidator.net -->
+<script src="scripts/jquery.form-validator.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+  // implementing the onge page scroll
+  $("#stickynav a").click(function(e){
+	// avoids "flashing" of the page due to reload
+    e.preventDefault();
+    $(window).scrollTo(this.hash, 1000); 
+  });
+  
+  // lightbox gallery -->
+  $('.gallery').featherlightGallery({
+	// custom navigation typo
+	previousIcon: '«',
+   	nextIcon: '»',
+	// parameters
+    galleryFadeIn: 300,
+    openSpeed: 300
+	
+	// an alternative implementation (currently out-commented)
+	/*gallery: {
+		fadeIn: 300,
+		fadeOut: 300
+	},
+	openSpeed:    300,
+	closeSpeed:   300*/
+	
+				}); // <-- end lightbox gallery	
+
+/*************************************************/
+/* Form Validation from http://formvalidator.net */
+/*************************************************/
+
+// Custom variables for custom positioning of error messages and language overrides
+var $messages = $('#error-message-wrapper');
+var myLanguage = {badEmail : 'Pleaaazzze - I need a real e-mail address!',}	
+// The validate function taking in the variables from above		
+$.validate({
+	errorMessagePosition : $messages,
+	language : myLanguage,
+	});	
+	
+}); // <-- end document.ready
+</script>
+</head>
+
+<body>
+  <!-- navigation bar -->
+    <nav id="stickynav">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <!-- navigation bar end  -->
+    <section id="home">
+        <h1>jQuery driven single page portfolio</h1>
+        <h2>My brilliant portfolio page</h2>
+    </section>
+    <section id="about">
+        <h2>About Us</h2>
+    </section>
+    <section id="projects">
+        <h2>Digital Caricatures</h2>
+        <div class="centered">
+        <a class="gallery" href="images/jennifer_lawrence.jpg"><img src="images/jennifer_lawrence.jpg" width="210" height="280" alt="Jennifer Lawrence caricature"/><span class="caption">Jennifer Lawrence</span></a>
+        <a class="gallery" href="images/charlie_sheen.jpg"><img src="images/charlie_sheen.jpg" width="210" height="280" alt="Charlie Sheen caricature"/><span class="caption">Charlie Sheen</span></a>
+        <a class="gallery" href="images/darth_vader.jpg"><img src="images/darth_vader.jpg" width="210" height="280" alt="Darth Vader caricature"/><span class="caption">Darth Vader uncovered!</span></a>
+        <a class="gallery" href="images/krysten_ritter.jpg"><img src="images/krysten_ritter.jpg" width="210" height="280" alt="Krysten Ritter caricature"/><span class="caption">Krysten Ritter</span></a>
+        </div>
+    </section>
+    <section id="contact">
+    <!-- Spaces between words should be replaced by %20 to ensure that the browser will display the text properly -->
+        <form action="mailto:mymail@mydomain.net?Subject=Say%20hello!" method="post" enctype="text/plain" class="dark-matter">
+    <h2>Contact me!
+    <!-- &#42; is a HTML entity representing the asteriks* as ASCII value  -->
+        <span>Please fill all required&#42; fields.</span>
+    </h2>
+    <span id="error-message-wrapper"></span>
+    <label>
+        <span>Your Name :&#42;</span>
+        <!-- the data-validation attribute is needed for proper jQuery form validation -->
+        <input id="name" type="text" name="name" placeholder="Your Full Name" data-validation="required" autofocus />
+    </label>
+    
+    <label>
+        <span>Your Email :&#42;</span>
+        <input id="email" type="email" name="email" placeholder="Valid Email Address" data-validation="email" />
+    </label>
+    
+    <label>
+        <span>Message :&#42;</span>
+        <textarea id="message" name="message" placeholder="Your Message" data-validation="required"></textarea>
+    </label>
+     <label>
+        <span>&nbsp;</span> 
+        <input type="submit" class="button" value="Send" /> 
+    </label>    
+</form>
+    </section>
+</body>
+</html>
